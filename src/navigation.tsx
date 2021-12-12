@@ -1,8 +1,10 @@
-import { blurbs } from "./data";
+import { getBlurbs } from "./utils/getBlurbs";
 import pointsOfInterest from "./data/points-of-interest.json";
 import { h } from "preact";
 import { LngLatLike } from "mapbox-gl";
 import { flyToLocation } from "./utils/flyToLocation";
+
+const blurbs = getBlurbs();
 
 const Navigation = () => {
   return (

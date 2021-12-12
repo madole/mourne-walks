@@ -29,6 +29,6 @@ export function flyToLocation(
     zoom: getZoom(index),
     essential: true,
     bearing: getBearing(index),
-    speed: 1,
+    speed: 0.5,
   });
 }

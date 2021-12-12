@@ -1,12 +1,13 @@
 import { h } from "preact";
-import { blurbs } from "./data";
-import type { BlurbType } from "./data";
+import type { BlurbType } from "./utils/getBlurbs";
+import { getBlurbs } from "./utils/getBlurbs";
 import { useEffect, useRef } from "preact/compat";
 import useIntersectionObserver from "./hooks/useIntersectionObserver";
 import pointsOfInterest from "./data/points-of-interest.json";
-import { map } from "./map";
 import { flyToLocation } from "./utils/flyToLocation";
 import { LngLatLike } from "mapbox-gl";
+
+const blurbs = getBlurbs();
 
 const Blurb = ({ blurb, index }: { blurb: BlurbType; index: number }) => {
   const ref = useRef<HTMLDivElement>(null);
