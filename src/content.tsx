@@ -3,9 +3,9 @@ import type { BlurbType } from "./utils/getBlurbs";
 import { getBlurbs } from "./utils/getBlurbs";
 import { useEffect, useRef } from "preact/compat";
 import useIntersectionObserver from "./hooks/useIntersectionObserver";
-import pointsOfInterest from "./data/points-of-interest.json";
+import pointsOfInterest from "./data/points-of-interest-mourne.json";
 import { flyToLocation } from "./utils/flyToLocation";
-import { LngLatLike } from "mapbox-gl";
+import { Feature } from "./types";
 
 const blurbs = getBlurbs();
 
@@ -13,49 +13,26 @@ const Blurb = ({ blurb, index }: { blurb: BlurbType; index: number }) => {
   const ref = useRef<HTMLDivElement>(null);
   const entry = useIntersectionObserver(ref, {
     threshold: 1,
-    rootMargin: "0px 0px -200px 0px",
+    rootMargin: "0px 0px -50px 0px",
   });
   useEffect(() => {
     if (entry?.isIntersecting) {
       if (window.location.href.includes(blurb.link)) {
         return;
       }
-      const feature = pointsOfInterest.features[index];
-      flyToLocation(
-        blurb.link,
-        feature.geometry.coordinates as LngLatLike,
-        index
-      );
+      const feature = pointsOfInterest.features[index] as Feature;
+      flyToLocation(feature);
     }
-  }, [entry]);
-
-  // useEffect(() => {
-  //   function rotateCamera(timestamp: number) {
-  //     // clamp the rotation between 0 -360 degrees
-  //     // Divide timestamp by 100 to slow rotation to ~10 degrees / sec
-  //     map.rotateTo((timestamp / 100) % 360, { duration: 0 });
-  //     // Request the next frame of the animation.
-  //     requestAnimationFrame(rotateCamera);
-  //   }
-  //   debugger;
-  //   window.onscroll = () => {
-  //     if (
-  //       window.innerHeight + window.scrollY >=
-  //       document.body.offsetHeight - 20
-  //     ) {
-  //       rotateCamera(0);
-  //     }
-  //   };
-  // }, []);
+  }, [blurb.link, entry?.isIntersecting, index]);
 
   return (
     <div
       ref={ref}
       id={blurb.link}
-      className="flex flex-col gap-4 bg-white p-10 rounded-3xl shadow-lg w-2/3"
+      className="flex flex-col gap-4 bg-white p-8 md:p-10 rounded-xl md:rounded-3xl shadow-lg w-11/12 md:w-2/3"
     >
-      <h2 className="text-2xl font-bold">{blurb.heading}</h2>
-      <p className="text-lg">{blurb.body}</p>
+      <h2 className="prose prose-lg font-bold">{blurb.heading}</h2>
+      <p className="prose">{blurb.body}</p>
     </div>
   );
 };

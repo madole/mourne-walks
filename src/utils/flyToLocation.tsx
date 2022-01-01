@@ -1,34 +1,35 @@
-import { LngLatLike } from "mapbox-gl";
 import { map } from "../map";
-import pointsOfInterest from "../data/points-of-interest.json";
+import { Feature } from "../types";
+import pointsOfInterest from "../data/points-of-interest-mourne.json";
+import { LngLatLike } from "mapbox-gl";
 
-function getBearing(index: number) {
-  if (index === 0) {
-    return 0;
+window.onload = () => {
+  const link = window.location.href.split("#")[1];
+  if (link) {
+    const content = document.getElementById(link);
+    content?.scrollIntoView({ behavior: "smooth" });
+    const flyToFeature = pointsOfInterest.features.find(
+      (feature) => feature.properties.link === link
+    ) as Feature;
+    if (flyToFeature) {
+      flyToLocation(flyToFeature);
+    }
   }
-  if (index === pointsOfInterest.features.length - 1) {
-    return 70;
-  }
-  return 180;
-}
+};
 
-function getZoom(index: number) {
-  if (index === pointsOfInterest.features.length - 1) {
-    return 16;
-  }
-  return 17;
-}
-export function flyToLocation(
-  link: string,
-  coordinates: LngLatLike,
-  index: number
-) {
+export function flyToLocation(feature: Feature) {
+  const {
+    properties: { link, zoom, bearing },
+    geometry: { coordinates },
+  } = feature;
   window.history.replaceState({}, "", `#${link}`);
-  map.flyTo({
-    center: coordinates,
-    zoom: getZoom(index),
+  window.dispatchEvent(new CustomEvent("historyStateReplaced"));
+  map?.flyTo({
+    offset: [10, 150],
+    center: coordinates as LngLatLike,
+    zoom: zoom ?? 17,
     essential: true,
-    bearing: getBearing(index),
+    bearing: bearing ?? 180,
     speed: 0.5,
   });
 }

@@ -1,4 +1,4 @@
-import pointsOfInterest from "../data/points-of-interest.json";
+import pointsOfInterest from "../data/points-of-interest-mourne.json";
 export interface BlurbType {
   link: string;
   heading: string;

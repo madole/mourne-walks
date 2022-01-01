@@ -6,7 +6,12 @@
       "properties": {
         "link": "step1",
         "heading": "Parking the car",
-        "body": "At the foot of the mountain sits a carpark called Donard Park carpark. There is a fantastic finishing line bar here too called Hugh McCann's so if you see that, you're in the right place."
+        "body": "At the foot of the mountain sits a carpark called Donard Park carpark. There is a fantastic finishing line bar here too called Hugh McCann's so if you see that, you're in the right place.",
+        "bearing": 0,
+        "circle-radius": 15,
+        "circle-color": "green",
+        "circle-stroke-width": 5,
+        "circle-stroke-color": "#fff"
       },
       "geometry": {
         "type": "Point",
@@ -81,7 +86,9 @@
       "properties": {
         "link": "step6",
         "heading": "The Peak",
-        "body": "After a few false summits on the way up the hill, you'll finally reach the top. You'll notice 2 structures. A turret built into the mourne wall which can provide a bit of shelter in the colder months, and a large pile of stones. The large pile of stones is the site of a pre-historic burial cairn and there's another situatied further north east overlooking newcastle. "
+        "body": "After a few false summits on the way up the hill, you'll finally reach the top. You'll notice 2 structures. A turret built into the mourne wall which can provide a bit of shelter in the colder months, and a large pile of stones. The large pile of stones is the site of a pre-historic burial cairn and there's another situatied further north east overlooking newcastle.",
+        "zoom": 16,
+        "bearing": 50
       },
       "geometry": {
         "type": "Point",

@@ -1,28 +1,28 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { h } from "preact";
 import { useEffect, useRef } from "preact/compat";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { h } from "preact";
-import pointsOfInterest from "./data/points-of-interest.json";
+import pointsOfInterest from "./data/points-of-interest-mourne.json";
 
 const API_KEY = import.meta.env.VITE_MAPBOX_KEY as string;
-
-console.log({ API_KEY });
 
 mapboxgl.accessToken = API_KEY;
 
 export let map: mapboxgl.Map;
 
 const Mapbox = () => {
-  const ref = useRef<HTMLDivElement>();
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!ref.current) return;
     map = new mapboxgl.Map({
       container: ref.current,
       style: "mapbox://styles/mapbox/satellite-v9",
-      center: [-5.894368886947632, 54.20567286749702],
+      center: pointsOfInterest.features[0].geometry
+        .coordinates as mapboxgl.LngLatLike,
       pitch: 60,
-      zoom: 17,
+      zoom: 15,
     });
     map.on("load", () => {
       map.addSource("mapbox-dem", {
@@ -39,6 +39,7 @@ const Mapbox = () => {
       });
       map.addSource("points-of-interest", {
         type: "geojson",
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         data: pointsOfInterest,
       });
@@ -48,21 +49,24 @@ const Mapbox = () => {
         type: "circle",
         source: "points-of-interest",
         paint: {
-          "circle-radius": 15,
-          "circle-color": "red",
-          "circle-stroke-width": 5,
-          "circle-stroke-color": "#fff",
+          "circle-radius": ["coalesce", ["get", "circle-radius"], 15],
+          "circle-color": ["coalesce", ["get", "circle-color"], "red"],
+          "circle-stroke-width": [
+            "coalesce",
+            ["get", "circle-stroke-width"],
+            5,
+          ],
+          "circle-stroke-color": [
+            "coalesce",
+            ["get", "circle-stroke-color"],
+            "#fff",
+          ],
         },
       });
     });
   }, []);
 
-  return (
-    <div
-      class="h-full w-full fixed top-0 bottom-0 left-80 right-0 map-image"
-      ref={ref}
-    />
-  );
+  return <div class="h-full w-full fixed inset-0 map-image" ref={ref} />;
 };
 
 export default Mapbox;
