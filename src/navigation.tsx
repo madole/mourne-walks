@@ -17,7 +17,7 @@ const Navigation = () => {
   }, []);
 
   return (
-    <div className="sm:w-1/4 md:w-1/5 w-full flex-shrink flex-grow-0 px-2 hidden md:block bg-white -mt-20">
+    <div className="sm:w-1/4 md:w-1/5 w-full flex-shrink flex-grow-0 px-2 hidden md:block bg-white -mt-28">
       <div className="sticky top-0 p-4 overflow-scroll">
         <div className="prose prose-lg  font-bold pb-5">Steps</div>
         <ul className="flex sm:flex-col content-center justify-between">

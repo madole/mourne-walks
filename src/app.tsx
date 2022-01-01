@@ -6,10 +6,11 @@ import Navigation from "./navigation";
 export function App() {
   return (
     <>
-      <nav class="flex justify-center w-full bg-white p-4">
-        <h1 class="prose prose-2xl text-5xl md:pl-60 text-center uppercase">
+      <nav class="flex flex-col items-center justify-center w-full bg-white p-4 md:pl-60">
+        <h1 class="prose prose-2xl text-5xl  text-center uppercase">
           Mourne walks
         </h1>
+        <h2 class="prose prose-xl text-center">Slieve Donard</h2>
       </nav>
       <div className="w-full flex flex-col sm:flex-row flex-grow">
         <Navigation />
