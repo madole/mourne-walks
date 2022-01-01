@@ -31,8 +31,8 @@ const Blurb = ({ blurb, index }: { blurb: BlurbType; index: number }) => {
       id={blurb.link}
       className="flex flex-col gap-4 bg-white p-8 md:p-10 rounded-xl md:rounded-3xl shadow-lg w-11/12 md:w-2/3"
     >
-      <h2 className="prose prose-lg font-bold">{blurb.heading}</h2>
-      <p className="prose">{blurb.body}</p>
+      <h2 className="prose prose-lg font-bold max-w-none">{blurb.heading}</h2>
+      <p className="prose max-w-none">{blurb.body}</p>
     </div>
   );
 };
